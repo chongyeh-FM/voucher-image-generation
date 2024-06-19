@@ -20,14 +20,20 @@ def generate_image():
     response = requests.get(image_url)
     return Image.open(BytesIO(response.content))
 
+# Function to draw rounded rectangle
+def draw_rounded_rectangle(draw, position, box_size, radius, fill):
+    x0, y0 = position
+    x1, y1 = x0 + box_size[0], y0 + box_size[1]
+    draw.rounded_rectangle([x0, y0, x1, y1], radius, fill=fill)
+
 # Function to add text inside a box on an image
 def add_text_box(image, text, position, box_size, font_size=30):
     draw = ImageDraw.Draw(image)
     font = ImageFont.load_default()
     
-    # Draw rectangle (box)
-    box_color = (0, 0, 0, 180)  # semi-transparent black
-    draw.rectangle([position, (position[0] + box_size[0], position[1] + box_size[1])], fill=box_color)
+    # Draw rounded rectangle (box)
+    box_color = (255, 255, 0, 180)  # semi-transparent yellow
+    draw_rounded_rectangle(draw, position, box_size, radius=20, fill=box_color)
     
     # Calculate text position
     text_bbox = draw.textbbox((0, 0), text, font=font)
@@ -36,7 +42,7 @@ def add_text_box(image, text, position, box_size, font_size=30):
     text_position = (position[0] + (box_size[0] - text_width) / 2, position[1] + (box_size[1] - text_height) / 2)
     
     # Draw text
-    draw.text(text_position, text, font=font, fill="white")
+    draw.text(text_position, text, font=font, fill="black")
     return image
 
 # Streamlit app layout
@@ -45,7 +51,6 @@ st.title("Promotional Voucher Generator")
 # Pre-filled input fields for campaign details
 campaign_name = st.text_input("Campaign Name", "Promo 10% off")
 duration = st.text_input("Duration", "14 Jun 2024 - 28 Jun 2024")
-triggerer = st.text_input("Triggerer", "Making order")
 promotion_effect = st.text_input("Promotion Effect", "Bill Discount | 10% off")
 conditions = st.text_input("Condition(s)", "No extra conditions")
 issue = st.text_input("Issue", "Promotion")
@@ -59,7 +64,7 @@ if st.button("Generate Promotional Voucher"):
         image = add_text_box(image, f"Condition(s): {conditions}", (1292, 864), (500, 50))   # Bottom right adjusted up
         image = add_text_box(image, f"Duration: {duration}", (1292, 914), (500, 50))         # Bottom right adjusted up
         image = add_text_box(image, f"Issue: {issue}", (1292, 10), (500, 50))                # Top right
-        image = add_text_box(image, f"Promotion Effect: {promotion_effect}", (646, 837), (600, 50))  # Middle, slightly lower
+        image = add_text_box(image, f"Promotion Effect: {promotion_effect}", (646, 837), (600, 50))  # Lowered even more
 
         image_filename = "promotional_voucher.png"
         image.save(image_filename)
