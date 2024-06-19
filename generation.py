@@ -27,7 +27,7 @@ def draw_rounded_rectangle(draw, position, box_size, radius, fill):
     draw.rounded_rectangle([x0, y0, x1, y1], radius, fill=fill)
 
 # Function to add text inside a box on an image
-def add_text_box(image, text, position, box_size, font_size=40):
+def add_text_box(image, text, position, box_size, font_size=140):
     draw = ImageDraw.Draw(image)
     try:
         font = ImageFont.truetype("arial.ttf", font_size)
