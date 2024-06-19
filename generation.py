@@ -21,9 +21,9 @@ def generate_image():
     return Image.open(BytesIO(response.content))
 
 # Function to add text inside a box on an image
-def add_text_box(image, text, position, box_size, font_size=30, font_path="arial.ttf"):
+def add_text_box(image, text, position, box_size, font_size=30):
     draw = ImageDraw.Draw(image)
-    font = ImageFont.truetype(font_path, font_size)
+    font = ImageFont.load_default()
     
     # Draw rectangle (box)
     box_color = (0, 0, 0, 180)  # semi-transparent black
@@ -58,9 +58,8 @@ if st.button("Generate Promotional Voucher"):
         image = add_text_box(image, f"Campaign Name: {campaign_name}", (396, 10), (1000, 50))  # Center top
         image = add_text_box(image, f"Condition(s): {conditions}", (1292, 864), (500, 50))   # Bottom right adjusted up
         image = add_text_box(image, f"Duration: {duration}", (1292, 914), (500, 50))         # Bottom right adjusted up
-        image = add_text_box(image, f"Triggerer: {triggerer}", (10, 10), (500, 50))          # Top left
         image = add_text_box(image, f"Issue: {issue}", (1292, 10), (500, 50))                # Top right
-        image = add_text_box(image, f"Promotion Effect: {promotion_effect}", (646, 587), (600, 50))  # Middle, slightly lower
+        image = add_text_box(image, f"Promotion Effect: {promotion_effect}", (646, 837), (600, 50))  # Middle, slightly lower
 
         image_filename = "promotional_voucher.png"
         image.save(image_filename)
@@ -71,7 +70,6 @@ if st.button("Generate Promotional Voucher"):
         st.write("### Campaign Details")
         st.write(f"**Campaign Name:** {campaign_name}")
         st.write(f"**Duration:** {duration}")
-        st.write(f"**Triggerer:** {triggerer}")
         st.write(f"**Promotion Effect:** {promotion_effect}")
         st.write(f"**Condition(s):** {conditions}")
         st.write(f"**Issue:** {issue}")
