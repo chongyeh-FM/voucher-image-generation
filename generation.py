@@ -27,7 +27,7 @@ def draw_rounded_rectangle(draw, position, box_size, radius, fill):
     draw.rounded_rectangle([x0, y0, x1, y1], radius, fill=fill)
 
 # Function to add text inside a box on an image
-def add_text_box(image, text, position, box_size, font_size=140):
+def add_text_box(image, text, position, box_size, font_size=40):
     draw = ImageDraw.Draw(image)
     try:
         font = ImageFont.truetype("arial.ttf", font_size)
@@ -63,11 +63,11 @@ if st.button("Generate Promotional Voucher"):
         image = generate_image()
         
         # Adding the texts inside boxes to the image
-        image = add_text_box(image, f"Campaign Name: {campaign_name}", (396, 10), (1000, 70))  # Center top
-        image = add_text_box(image, f"Condition(s): {conditions}", (1292, 864), (500, 70))   # Bottom right adjusted up
-        image = add_text_box(image, f"Duration: {duration}", (1292, 914), (500, 70))         # Bottom right adjusted up
-        image = add_text_box(image, f"Issue: {issue}", (1292, 10), (500, 70))                # Top right
-        image = add_text_box(image, f"Promotion Effect: {promotion_effect}", (646, 837), (600, 70))  # Lowered even more
+        image = add_text_box(image, f"Campaign Name: {campaign_name}", (396, 10), (1000, 70), font_size=40)  # Center top
+        image = add_text_box(image, f"Condition(s): {conditions}", (1292, 864), (500, 70), font_size=40)   # Bottom right adjusted up
+        image = add_text_box(image, f"Duration: {duration}", (1292, 914), (500, 70), font_size=40)         # Bottom right adjusted up
+        image = add_text_box(image, f"Issue: {issue}", (1292, 10), (500, 70), font_size=40)                # Top right
+        image = add_text_box(image, f"Promotion Effect: {promotion_effect}", (646, 837), (600, 70), font_size=40)  # Lowered even more
 
         image_filename = "promotional_voucher.png"
         image.save(image_filename)
