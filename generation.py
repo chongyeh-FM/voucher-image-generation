@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 
 # Initialize OpenAI client with the API key
-client = OpenAI(api_key=st.secrets['OPENAI_API_KEY']')
+client = OpenAI(api_key=st.secrets['OPENAI_API_KEY'])
 
 # Function to generate a single image
 def generate_image():
