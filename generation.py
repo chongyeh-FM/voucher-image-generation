@@ -11,7 +11,7 @@ client = OpenAI(api_key=st.secrets['OPENAI_API_KEY'])
 def generate_image():
     response = client.images.generate(
         model="dall-e-3",
-        prompt="Create an enticing full page promotional voucher for a café. The focus of the image should be on the scrumptious food offerings from the café. Display delicate pastries with powdered sugar sprinklings, steaming hot coffee with a perfect crema, and freshly squeezed orange juice with a hint of mint. Ensure the image is tempting and will draw customers into the café. The overall tone should be warm and inviting, showcasing the café as the perfect place for a cosy meal or a quick bite. Do not include text or logos in the design.",
+        prompt="Create an enticing full page promotional voucher for a café. Do not include any text or logos in the design.",
         size="1792x1024",
         quality="hd",
         n=1,
@@ -27,13 +27,13 @@ def draw_rounded_rectangle(draw, position, box_size, radius, fill):
     draw.rounded_rectangle([x0, y0, x1, y1], radius, fill=fill)
 
 # Function to add text inside a box on an image
-def add_text_box(image, text, position, box_size, font_size=60):
+def add_text_box(image, text, position, box_size, font_size=45):
     draw = ImageDraw.Draw(image)
     try:
-        # Try to load a TrueType font
+        # Load a TrueType font
         font = ImageFont.truetype("arial.ttf", font_size)
     except IOError:
-        # Fallback to a default bitmap font if TrueType font loading fails
+        # Fallback to a larger default bitmap font
         font = ImageFont.load_default()
         st.error("TrueType font not found. Using default font.")
 
@@ -66,11 +66,11 @@ if st.button("Generate Promotional Voucher"):
         image = generate_image()
         
         # Adding the texts inside boxes to the image
-        image = add_text_box(image, f"Campaign Name: {campaign_name}", (396, 10), (1000, 70), font_size=60)  # Center top
-        image = add_text_box(image, f"Condition(s): {conditions}", (1292, 864), (500, 70), font_size=60)   # Bottom right adjusted up
-        image = add_text_box(image, f"Duration: {duration}", (1292, 914), (500, 70), font_size=60)         # Bottom right adjusted up
-        image = add_text_box(image, f"Issue: {issue}", (1292, 10), (500, 70), font_size=60)                # Top right
-        image = add_text_box(image, f"Promotion Effect: {promotion_effect}", (646, 837), (600, 70), font_size=60)  # Lowered even more
+        image = add_text_box(image, f"Campaign Name: {campaign_name}", (396, 10), (1000, 70), font_size=45)  # Center top
+        image = add_text_box(image, f"Condition(s): {conditions}", (1292, 864), (500, 70), font_size=45)   # Bottom right adjusted up
+        image = add_text_box(image, f"Duration: {duration}", (1292, 914), (500, 70), font_size=45)         # Bottom right adjusted up
+        image = add_text_box(image, f"Issue: {issue}", (1292, 10), (500, 70), font_size=45)                # Top right
+        image = add_text_box(image, f"Promotion Effect: {promotion_effect}", (646, 837), (600, 70), font_size=45)  # Lowered even more
 
         image_filename = "promotional_voucher.png"
         image.save(image_filename)
