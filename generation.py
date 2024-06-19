@@ -58,6 +58,8 @@ st.title("Promotional Voucher Generator")
 campaign_name = st.text_input("Campaign Name", "Promo 10% off")
 duration = st.text_input("Duration", "14 Jun 2024 - 28 Jun 2024")
 promotion_effect = st.text_input("Promotion Effect", "Bill Discount | 10% off")
+conditions = st.text_input("Condition(s)", "No extra conditions")
+issue = st.text_input("Issue", "Promotion")
 
 if st.button("Generate Promotional Voucher"):
     with st.spinner('Generating image...'):
@@ -78,5 +80,7 @@ if st.button("Generate Promotional Voucher"):
         st.write(f"**Campaign Name:** {campaign_name}")
         st.write(f"**Duration:** {duration}")
         st.write(f"**Promotion Effect:** {promotion_effect}")
+        st.write(f"**Condition(s):** {conditions}")
+        st.write(f"**Issue:** {issue}")
 
 # Run the Streamlit app with `streamlit run your_script_name.py`
