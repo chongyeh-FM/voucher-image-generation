@@ -58,18 +58,14 @@ st.title("Promotional Voucher Generator")
 campaign_name = st.text_input("Campaign Name", "Promo 10% off")
 duration = st.text_input("Duration", "14 Jun 2024 - 28 Jun 2024")
 promotion_effect = st.text_input("Promotion Effect", "Bill Discount | 10% off")
-conditions = st.text_input("Condition(s)", "No extra conditions")
-issue = st.text_input("Issue", "Promotion")
 
 if st.button("Generate Promotional Voucher"):
     with st.spinner('Generating image...'):
         image = generate_image()
         
         # Adding the texts inside boxes to the image
-        image = add_text_box(image, campaign_name, (396, 10), (1000, 70), font_size=45)  # Center top
-        image = add_text_box(image, conditions, (1292, 864), (500, 70), font_size=45)   # Bottom right adjusted up
-        image = add_text_box(image, duration, (1292, 914), (500, 70), font_size=45)         # Bottom right adjusted up
-        image = add_text_box(image, issue, (1292, 10), (500, 70), font_size=45)                # Top right
+        image = add_text_box(image, campaign_name, (396, 10), (900, 60), font_size=40)  # Center top
+        image = add_text_box(image, duration, (1292, 914), (500, 60), font_size=40)     # Bottom right adjusted up and size reduced
         image = add_text_box(image, promotion_effect, (646, 837), (600, 70), font_size=45)  # Lowered even more
 
         image_filename = "promotional_voucher.png"
@@ -82,7 +78,5 @@ if st.button("Generate Promotional Voucher"):
         st.write(f"**Campaign Name:** {campaign_name}")
         st.write(f"**Duration:** {duration}")
         st.write(f"**Promotion Effect:** {promotion_effect}")
-        st.write(f"**Condition(s):** {conditions}")
-        st.write(f"**Issue:** {issue}")
 
 # Run the Streamlit app with `streamlit run your_script_name.py`
